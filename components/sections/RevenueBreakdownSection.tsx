@@ -49,7 +49,7 @@ function RevenueBreakdownContent() {
         position: 'bottom' as const,
         labels: {
           padding: 20,
-          font: { size: 14, weight: 'bold' },
+          font: { size: 14, weight: 700 },
           color: '#374151',
           usePointStyle: true,
           pointStyle: 'circle',
