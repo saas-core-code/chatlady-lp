@@ -27,15 +27,17 @@ function RevenueBreakdownContent() {
 
   const doughnutData = {
     labels: ['ビデオチャット', 'テキストチャット', '投げ銭', 'アイテム売上', 'その他'],
-    datasets: [{
-      data: [40, 25, 15, 10, 10],
-      backgroundColor: chartColors,
-      borderColor: Array(5).fill('#ffffff'),
-      borderWidth: 2,
-      hoverOffset: 20,
-      hoverBorderWidth: 4,
-      hoverBorderColor: chartColors,
-    }],
+    datasets: [
+      {
+        data: [40, 25, 15, 10, 10],
+        backgroundColor: chartColors,
+        borderColor: Array(5).fill('#ffffff'),
+        borderWidth: 2,
+        hoverOffset: 20,
+        hoverBorderWidth: 4,
+        hoverBorderColor: chartColors,
+      },
+    ],
   };
 
   const doughnutOptions = {
@@ -64,9 +66,9 @@ function RevenueBreakdownContent() {
               }));
             }
             return [];
-          }
+          },
         },
-        onClick: () => {}, // 凡例クリックを無効化
+        onClick: () => {},
       },
       tooltip: {
         enabled: false,
@@ -79,12 +81,7 @@ function RevenueBreakdownContent() {
         setActiveIndex(-1);
       }
     },
-    animation: {
-      animateRotate: true,
-      animateScale: true,
-      duration: 2000,
-      easing: 'easeOutElastic',
-    },
+    animation: false,
   };
 
   useEffect(() => {
@@ -108,27 +105,19 @@ function RevenueBreakdownContent() {
       },
     });
 
-    tl.fromTo(title,
+    tl.fromTo(
+      title,
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-    ).fromTo(chart,
-      { 
-        opacity: 0, 
-        y: 50,
-        scale: 0.95,
-      },
-      { 
-        opacity: 1, 
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-      },
+    ).fromTo(
+      chart,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' },
       '-=0.4'
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, [isMounted]);
 
