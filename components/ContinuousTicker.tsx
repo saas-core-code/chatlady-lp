@@ -16,21 +16,26 @@ function Ticker({ reverse = false }: TickerProps) {
     const el = containerRef.current;
     if (!el) return;
 
-    // 中身を複製して無限ループ用の2セットに
+    // コンテンツを2倍に複製して無限ループ
     el.innerHTML += el.innerHTML;
 
     let rafId: number;
-    // reverse が true のときは逆方向スクロール
     const speed = reverse ? -0.5 : 0.5;
 
     function tick() {
-      el.scrollLeft += speed;
-      if (!reverse && el.scrollLeft >= el.scrollWidth / 2) {
-        el.scrollLeft -= el.scrollWidth / 2;
+      const current = containerRef.current;
+      if (!current) return;
+
+      current.scrollLeft += speed;
+
+      // ループ位置のリセット
+      if (!reverse && current.scrollLeft >= current.scrollWidth / 2) {
+        current.scrollLeft -= current.scrollWidth / 2;
       }
-      if (reverse && el.scrollLeft <= 0) {
-        el.scrollLeft += el.scrollWidth / 2;
+      if (reverse && current.scrollLeft <= 0) {
+        current.scrollLeft += current.scrollWidth / 2;
       }
+
       rafId = requestAnimationFrame(tick);
     }
 
@@ -67,9 +72,9 @@ function Ticker({ reverse = false }: TickerProps) {
 export default function ContinuousTicker() {
   return (
     <div className="flex flex-col gap-4">
-      {/* 1行目: 右→左 */}
+      {/* 1行目: 左から右 */}
       <Ticker />
-      {/* 2行目: 左→右 */}
+      {/* 2行目: 右から左 */}
       <Ticker reverse />
     </div>
   );
