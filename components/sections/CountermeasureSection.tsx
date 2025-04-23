@@ -54,7 +54,8 @@ const additionalFeatures = [
 ];
 
 function CountermeasureContent() {
-  const sectionRef = useRef<HTMLElement>(null);
+  // ここを修正: HTMLElement から HTMLDivElement に変更
+  const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
